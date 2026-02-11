@@ -33,3 +33,24 @@ trainMarker.openPopup();
 document.getElementById("btnRecenter").addEventListener("click", () => {
   map.setView([capeTown.lat, capeTown.lng], 12);
 });
+// --- Train movement demo: move along a path (list of coordinates) ---
+
+// A simple path from Cape Town -> Woodstock (you can add more later)
+const path = [
+  [-33.9272, 18.4360], // start point (current train position)
+  [-33.9268, 18.4395],
+  [-33.9265, 18.4430],
+  [-33.9274, 18.4465],
+  [-33.9286, 18.4486], // Woodstock station
+];
+
+let pathIndex = 0;
+
+function moveTrainStep() {
+  pathIndex = (pathIndex + 1) % path.length; // loop back to start when finished
+  const [lat, lng] = path[pathIndex];
+
+  trainMarker.setLatLng([lat, lng]); // THIS moves the marker
+}
+
+setInterval(moveTrainStep, 1000); // move every 1 second
