@@ -33,24 +33,27 @@ trainMarker.openPopup();
 document.getElementById("btnRecenter").addEventListener("click", () => {
   map.setView([capeTown.lat, capeTown.lng], 12);
 });
-// --- Train movement demo: move along a path (list of coordinates) ---
 
-// A simple path from Cape Town -> Woodstock (you can add more later)
-const path = [
-  [-33.9272, 18.4360], // start point (current train position)
-  [-33.9268, 18.4395],
-  [-33.9265, 18.4430],
-  [-33.9274, 18.4465],
-  [-33.9286, 18.4486], // Woodstock station
-];
+// --- Smooth train movement demo: interpolate between two points ---
 
-let pathIndex = 0;
+const start = { lat: -33.9253, lng: 18.4246 }; // Cape Town Station
+const end   = { lat: -33.9286, lng: 18.4486 }; // Woodstock Station
 
-function moveTrainStep() {
-  pathIndex = (pathIndex + 1) % path.length; // loop back to start when finished
-  const [lat, lng] = path[pathIndex];
+let t = 0;                 // 0 -> 1
+const step = 0.01;         // speed (smaller = slower)
 
-  trainMarker.setLatLng([lat, lng]); // THIS moves the marker
+function lerp(a, b, t) {
+  return a + (b - a) * t;
 }
 
-setInterval(moveTrainStep, 1000); // move every 1 second
+function animateTrain() {
+  t += step;
+  if (t > 1) t = 0; // loop
+
+  const lat = lerp(start.lat, end.lat, t);
+  const lng = lerp(start.lng, end.lng, t);
+
+  trainMarker.setLatLng([lat, lng]);
+}
+
+setInterval(animateTrain, 100); // every 100ms = smoother
