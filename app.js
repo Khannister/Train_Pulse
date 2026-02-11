@@ -34,6 +34,16 @@ document.getElementById("btnRecenter").addEventListener("click", () => {
   map.setView([capeTown.lat, capeTown.lng], 12);
 });
 
+ //This code would draw a thick line connecting these two subway stations.
+L.polyline(
+  [
+    [stations[0].lat, stations[0].lng],
+    [stations[1].lat, stations[1].lng],
+  ],
+  { weight: 4 }
+).addTo(map);
+
+
 // --- Smooth train movement demo: interpolate between two points ---
 
 const start = { lat: -33.9253, lng: 18.4246 }; // Cape Town Station
