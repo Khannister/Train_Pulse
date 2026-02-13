@@ -13,6 +13,8 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 const stations = [
   { name: "Cape Town", lat: -33.9253, lng: 18.4246 },
   { name: "Woodstock", lat: -33.9286, lng: 18.4486 },
+  { name: "Salt River", lat: -33.9272, lng: 18.4360 },
+  { name: "Observatory", lat: -33.9278, lng: 18.4650 },
 ];
 
 stations.forEach((s) => {
