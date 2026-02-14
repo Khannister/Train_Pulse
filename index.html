@@ -23,13 +23,28 @@
 
     <main>
       <div id="map"></div>
+      
+ <!-- Uber-style bottom panel -->
+<div id="bottomPanel">
+  <div class="panelTop">
+    <div class="pill" id="uiStatus">Status: —</div>
+    <div class="pill" id="uiCountdown">—</div>
+  </div>
 
-      <section class="panel">
-        <h2>New Features</h2>
-        <p>Ubber style dashboard.</p>
-        <button id="btnRecenter">Recenter Map</button>
-      </section>
-    </main>
+  <div class="panelMain">
+    <div class="row">
+      <span class="label">Current</span>
+      <span class="value" id="uiCurrent">—</span>
+    </div>
+    <div class="row">
+      <span class="label">Next</span>
+      <span class="value" id="uiNext">—</span>
+    </div>
+  </div>
+
+  <button id="btnTrack" class="trackBtn">Track this train</button>
+</div>
+
 
     <!-- Leaflet JS -->
     <script
