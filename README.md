@@ -1,55 +1,72 @@
-# Train_Pulse
-ALX capstone Project
-TrainPulse – Capstone Project Proposal
+🚆 TrainPulse
+<p align="center"> <strong>Real-time train tracking for Cape Town commuters.</strong><br> Bringing Uber-style visibility to public rail. </p> <p align="center"> 🚧 MVP in Development </p>
 
-1. Project Idea
+🌍 The Problem
+Commuters on Cape Town’s Southern Line face:
+⏳ Unpredictable train schedules
+🚫 Delays and cancellations without updates
+❓ No real-time tracking system
+⚠️ Safety risks caused by uncertainty
+There is currently no simple, accessible way to see where your train is.
 
-The project I decided to work on is called TrainPulse.
-TrainPulse is a web application that allows commuters to track trains in real time (or near real time) and plan their journeys more effectively. The app is inspired by ride‑hailing applications such as Uber or InDrive, where users can see vehicles moving on a map, track progress, and get estimated arrival times.
-The initial focus of the project is on Cape Town’s Southern Line (Cape Town → Retreat). Many commuters experience uncertainty due to delayed, cancelled, or unpredictable train services. TrainPulse aims to reduce this uncertainty by presenting train movement, status, and estimated arrival times in a clear and familiar interface.
-The current implementation uses a simulation MVP to demonstrate how the system would work if connected to real train data, while still solving a real problem and showing strong technical design.
+💡 The Solution
+TrainPulse delivers a clean, real-time tracking experience inspired by ride-hailing apps.
+With TrainPulse, users can:
 
-2. Project Features
+📍 View live train movement on an interactive map
+⏱ Get dynamic Estimated Time of Arrival (ETA)
+🚉 Select their boarding station
+🔢 See how many stops away the train is
+👁 Track and auto-follow trains in real time
 
-The project will have the following features:
+Built to reduce uncertainty and improve commuter confidence.
 
-Core Features
-Interactive map showing the Southern Line stations
-Visual train movement along the railway line
-Station‑to‑station movement with realistic stops
-Live status updates (Moving, Stopped, Arrived)
-Estimated Time of Arrival (ETA) updates
-Stops‑away indicator (how many stations away the train is)
+📌 Current Focus
 
-User‑Focused Features
-"Your station" selector so users can choose where they want to board
-ETA specifically calculated for the selected station
-Uber‑style bottom dashboard for quick information
-Track / follow train functionality that keeps the train centered on the map
+Southern Line:
+Cape Town → Retreat
+The current version uses simulated real-time data to demonstrate full system functionality and scalable architecture.
 
-Planned Enhancements
-Support for multiple trains
-Bi‑directional routes (Cape Town → Retreat and Retreat → Cape Town)
-Alerts and notifications
-Historical reliability data
+🛠 Tech Stack
+Frontend
+React
+Leaflet (Interactive Mapping)
+Component-based architecture
+Real-time simulation engine
 
-3. API Usage
-At the moment, the project uses simulated data to represent train movement and timing. This approach allows the core functionality and architecture to be demonstrated without relying on unreliable or unavailable real‑time data sources.
-Planned / Possible APIs
-In future versions, the application can integrate with:
-GTFS (General Transit Feed Specification) for scheduled train data
-GTFS‑Realtime feeds for live train positions and delays (if available)
-Crowdsourced reporting APIs where users submit arrival and delay information
-A custom backend API built with FastAPI or Express to aggregate and serve data
-The frontend is designed so that simulated data can easily be replaced with real API responses.
+Future Integrations
+GTFS (Scheduled data)
+GTFS-Realtime feeds
+FastAPI / Express backend
+Crowdsourced delay reporting
 
-4. React Components (Planned)
-The final version of the project is planned to be implemented using React. The following components are expected:
-App – Root component
-MapView – Displays the Leaflet map and route
-TrainMarker – Handles train position and animation
-StationMarker – Displays individual stations
-BottomPanel – Uber‑style dashboard UI
-StationSelector – Dropdown for selecting the user’s station
-ETAInfo – Displays ETA and stops‑away information
-TrackButton – Toggles train tracking mode
+🚀 Product Vision
+TrainPulse aims to become:
+“Uber for public rail transit in emerging markets.”
+Roadmap
+
+🚆 Multiple trains
+
+🔁 Bi-directional routes
+🔔 Delay alerts & notifications
+📊 Reliability scoring
+🌙 Dark mode
+
+⚙️ Run Locally
+# Clone the repository
+git clone https://github.com/yourusername/trainpulse.git
+# Navigate into the folder
+cd trainpulse
+# Install dependencies
+npm install
+# Start development server
+npm start
+
+👨🏾‍💻 Founder
+Michael KhanTal
+ALX Software Engineering Capstone Project
+
+📈 Status
+🚧 MVP in active development
+📍 Focused on Southern Line simulation
+🔜 Preparing for real API integration
