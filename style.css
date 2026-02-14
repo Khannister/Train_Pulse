@@ -54,3 +54,76 @@ button {
 button:hover {
   background: #f7f7f7;
 }
+/* Give the map space so the fixed bottom panel doesn't hide it */
+#map {
+  height: 72vh; /* adjust if you want */
+}
+
+/* Uber-style bottom panel */
+#bottomPanel {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  background: white;
+  border: 1px solid #e7e7e7;
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.panelTop {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.pill {
+  font-size: 13px;
+  border: 1px solid #eee;
+  background: #fafafa;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: #222;
+}
+
+.panelMain .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-top: 1px solid #f2f2f2;
+}
+
+.panelMain .row:first-child {
+  border-top: none;
+}
+
+.label {
+  color: #666;
+  font-size: 13px;
+}
+
+.value {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.trackBtn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid #111;
+  background: #111;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.trackBtn:hover {
+  opacity: 0.92;
+}
