@@ -1,71 +1,111 @@
-// 1) Start the map centered around Cape Town CBD
+// app.js — TrainPulse Demo (Cape Town) with station-to-station movement + stops
+
+// 1) Map center (Cape Town CBD)
 const capeTown = { lat: -33.9249, lng: 18.4241 };
 
+// Create map
 const map = L.map("map").setView([capeTown.lat, capeTown.lng], 12);
 
-// 2) Add a map tile layer (the actual map graphics)
+// Add tiles (OpenStreetMap)
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
-  attribution: '&copy; OpenStreetMap contributors',
+  attribution: "&copy; OpenStreetMap contributors",
 }).addTo(map);
 
-// 3) Add a couple of station markers (demo data)
+// 2) Demo stations (start small: 2 stations)
 const stations = [
   { name: "Cape Town", lat: -33.9253, lng: 18.4246 },
   { name: "Woodstock", lat: -33.9286, lng: 18.4486 },
-  { name: "Salt River", lat: -33.9272, lng: 18.4360 },
-  { name: "Observatory", lat: -33.9278, lng: 18.4650 },
 ];
 
+// Add station markers
 stations.forEach((s) => {
-  L.marker([s.lat, s.lng]).addTo(map).bindPopup(`🚉 Station: <b>${s.name}</b>`);
+  L.marker([s.lat, s.lng])
+    .addTo(map)
+    .bindPopup(`🚉 Station: <b>${s.name}</b>`);
 });
 
-// 4) Add a train marker (demo data)
-const train = { id: "Train 01", lat: -33.9272, lng: 18.4360 };
-
-const trainMarker = L.marker([train.lat, train.lng])
-  .addTo(map)
-  .bindPopup(`🚆 <b>${train.id}</b><br>Status: Demo`);
-
-// Optional: open popup on load so you see it works
-trainMarker.openPopup();
-
-// 5) Button: recenter map
-document.getElementById("btnRecenter").addEventListener("click", () => {
-  map.setView([capeTown.lat, capeTown.lng], 12);
-});
-
- //This code would draw a thick line connecting these two subway stations.
+// Draw route line between stations (looks professional)
 L.polyline(
-  [
-    [stations[0].lat, stations[0].lng],
-    [stations[1].lat, stations[1].lng],
-  ],
+  stations.map((s) => [s.lat, s.lng]),
   { weight: 4 }
 ).addTo(map);
 
+// 3) Train marker (starts at first station)
+const train = { id: "Train 01", lat: stations[0].lat, lng: stations[0].lng };
 
-// --- Smooth train movement demo: interpolate between two points ---
+const trainMarker = L.marker([train.lat, train.lng])
+  .addTo(map)
+  .bindPopup(`🚆 <b>${train.id}</b><br>Starting at: <b>${stations[0].name}</b>`);
 
-const start = { lat: -33.9253, lng: 18.4246 }; // Cape Town Station
-const end   = { lat: -33.9286, lng: 18.4486 }; // Woodstock Station
+trainMarker.openPopup();
 
-let t = 0;                 // 0 -> 1
-const step = 0.01;         // speed (smaller = slower)
+// 4) Station-to-station movement with stops (bounces between 2 stations)
+let currentStationIndex = 0;
+let nextStationIndex = 1;
+
+// Movement settings
+const updateEveryMs = 100; // how often we update the marker
+const step = 0.01; // speed: 0.01 = ~100 updates to reach next station
+const stopDurationMs = 3000; // wait time at each station
+
+let t = 0; // progress 0 -> 1 between stations
+let isStopped = false;
 
 function lerp(a, b, t) {
   return a + (b - a) * t;
 }
 
-function animateTrain() {
-  t += step;
-  if (t > 1) t = 0; // loop
+function startStopAtStation(stationIndex) {
+  isStopped = true;
 
-  const lat = lerp(start.lat, end.lat, t);
-  const lng = lerp(start.lng, end.lng, t);
+  const station = stations[stationIndex];
+  trainMarker.bindPopup(
+    `🚆 <b>${train.id}</b><br>Status: <b>Stopped</b><br>At: <b>${station.name}</b>`
+  );
+  trainMarker.openPopup();
+
+  setTimeout(() => {
+    isStopped = false;
+
+    // Swap direction (because we currently have only 2 stations)
+    const temp = currentStationIndex;
+    currentStationIndex = nextStationIndex;
+    nextStationIndex = temp;
+
+    t = 0; // reset trip progress
+  }, stopDurationMs);
+}
+
+function moveTrain() {
+  if (isStopped) return;
+
+  const from = stations[currentStationIndex];
+  const to = stations[nextStationIndex];
+
+  t += step;
+
+  // Arrived
+  if (t >= 1) {
+    trainMarker.setLatLng([to.lat, to.lng]);
+    startStopAtStation(nextStationIndex);
+    return;
+  }
+
+  // In transit
+  const lat = lerp(from.lat, to.lat, t);
+  const lng = lerp(from.lng, to.lng, t);
 
   trainMarker.setLatLng([lat, lng]);
 }
 
-setInterval(animateTrain, 100); // every 100ms = smoother
+// Start movement loop
+setInterval(moveTrain, updateEveryMs);
+
+// 5) Recenter button
+const btn = document.getElementById("btnRecenter");
+if (btn) {
+  btn.addEventListener("click", () => {
+    map.setView([capeTown.lat, capeTown.lng], 12);
+  });
+}
