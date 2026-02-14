@@ -3,6 +3,7 @@ ALX capstone Project
 TrainPulse – Capstone Project Proposal
 
 1. Project Idea
+
 The project I decided to work on is called TrainPulse.
 TrainPulse is a web application that allows commuters to track trains in real time (or near real time) and plan their journeys more effectively. The app is inspired by ride‑hailing applications such as Uber or InDrive, where users can see vehicles moving on a map, track progress, and get estimated arrival times.
 The initial focus of the project is on Cape Town’s Southern Line (Cape Town → Retreat). Many commuters experience uncertainty due to delayed, cancelled, or unpredictable train services. TrainPulse aims to reduce this uncertainty by presenting train movement, status, and estimated arrival times in a clear and familiar interface.
