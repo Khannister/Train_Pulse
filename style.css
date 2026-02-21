@@ -295,6 +295,7 @@ main {
 .landing.is-hidden {
   display: none;
 }
+<<<<<<< HEAD
 
 
 /* ===== Route Selection Screen ===== */
@@ -481,3 +482,5 @@ main {
 .routeSelect.is-visible {
   display: block;
 }
+=======
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0

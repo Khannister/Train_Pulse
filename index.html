@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TrainPulse - Cape Town (Demo)</title>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
     <!-- Leaflet CSS -->
     <link
       rel="stylesheet"
@@ -13,6 +17,7 @@
     />
     <link rel="stylesheet" href="./style.css" />
   </head>
+
   <body>
     <!-- Landing Page (shown first) -->
     <section id="landing" class="landing">
@@ -28,13 +33,26 @@
             <path d="M13.5 8.5h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
+<<<<<<< HEAD
         <h1 class="landingTitle">TrainPulse</h1>
         <p class="landingSubtitle">Real-time train tracking for Cape Town commuters</p>
+=======
+
+        <h1 class="landingTitle">TrainPulse</h1>
+        <p class="landingSubtitle">Real-time train tracking for Cape Town commuters</p>
+
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
         <p class="landingDesc">
           Track trains along the Southern Line in real-time. Know exactly where your train is,
           which station it's at, and when it will arrive at your stop.
         </p>
+<<<<<<< HEAD
         <button id="btnStart" class="ctaBtn">View Live Trains</button>
+=======
+
+        <button id="btnStart" class="ctaBtn">View Live Trains</button>
+
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
         <div class="featureGrid" role="list">
           <div class="featureCard" role="listitem">
             <div class="featureIcon" aria-hidden="true">
@@ -46,6 +64,10 @@
             <h3>Real-time Updates</h3>
             <p>Live train positions updated continuously</p>
           </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
           <div class="featureCard" role="listitem">
             <div class="featureIcon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,6 +78,10 @@
             <h3>Station Tracking</h3>
             <p>See current and next station stops</p>
           </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
           <div class="featureCard" role="listitem">
             <div class="featureIcon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,6 +97,7 @@
         </div>
       </div>
     </section>
+<<<<<<< HEAD
     <!-- App Shell (hidden until user starts) -->
     <!-- Route Selection -->
     <section id="routeSelect" class="routeSelect" aria-hidden="true">
@@ -126,12 +153,30 @@
       <main>
         <div id="map"></div>
       </main>
+=======
+
+    <!-- App Shell (hidden until user starts) -->
+    <div id="appShell" class="appShell" aria-hidden="true">
+      <header>
+        <h1>TrainPulse</h1>
+        <p>Southern Line (Cape Town → Retreat) • Demo simulation</p>
+      </header>
+
+      <main>
+        <div id="map"></div>
+      </main>
+
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
       <!-- Uber-style bottom panel -->
       <div id="bottomPanel">
         <div class="panelTop">
           <div class="pill" id="uiStatus">Status: —</div>
           <div class="pill" id="uiCountdown">—</div>
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
         <div class="panelMain">
           <div class="row">
             <span class="label">Your station</span>
@@ -139,22 +184,42 @@
               <!-- options injected by JS -->
             </select>
           </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
           <div class="row">
             <span class="label">ETA to your station</span>
             <span class="value" id="uiEtaToYou">—</span>
           </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
           <div class="row">
             <span class="label">Current</span>
             <span class="value" id="uiCurrent">—</span>
           </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
           <div class="row">
             <span class="label">Next</span>
             <span class="value" id="uiNext">—</span>
           </div>
         </div>
+<<<<<<< HEAD
         <button id="btnTrack" class="trackBtn">Track Train 01</button>
       </div>
     </div>
+=======
+
+        <button id="btnTrack" class="trackBtn">Track Train 01</button>
+      </div>
+    </div>
+
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
     <!-- Leaflet JS -->
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"

@@ -27,12 +27,15 @@ const stations = [
   { name: "Retreat", lat: -34.06, lng: 18.463 },
 ];
 
+<<<<<<< HEAD
 
 // Active route (changes when direction changes)
 let routeStations = stations;
 let routeDirection = 'toRetreat'; // 'toRetreat' | 'toCapeTown'
 
 
+=======
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
 // --- Simulation settings ---
 const updateEveryMs = 100; // tick rate
 const travelMs = 9000; // time to travel between routeStations
@@ -56,6 +59,7 @@ let stationMarkers = [];
 let trainMarker;
 let intervalId;
 
+<<<<<<< HEAD
 
 function setRoute(direction) {
   routeDirection = direction;
@@ -71,6 +75,8 @@ function setRoute(direction) {
   selectedStationIndex = 0;
 }
 
+=======
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
 function lerp(a, b, t) {
   return a + (b - a) * t;
 }
@@ -121,7 +127,11 @@ function etaToStationMs(now, targetIndex) {
     simStation += 1;
 
     if (simStation < targetIndex) {
+<<<<<<< HEAD
       eta += stopMs; // stop at intermediate routeStations
+=======
+      eta += stopMs; // stop at intermediate stations
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
     }
   }
 
@@ -129,8 +139,13 @@ function etaToStationMs(now, targetIndex) {
 }
 
 function setTrainPopup(trainId) {
+<<<<<<< HEAD
   const currentName = routeStations[currentIndex]?.name ?? "—";
   const nextName = phase === "DONE" ? "—" : routeStations[nextIndex]?.name ?? "—";
+=======
+  const currentName = stations[currentIndex]?.name ?? "—";
+  const nextName = phase === "DONE" ? "—" : stations[nextIndex]?.name ?? "—";
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
   const statusText =
     phase === "DONE" ? "Arrived" : phase === "STOPPED" ? "Stopped" : "Moving";
 
@@ -200,8 +215,13 @@ function moveIfMoving(trainId, now) {
 }
 
 function updateBottomPanel(now, ui, trainId) {
+<<<<<<< HEAD
   const currentName = routeStations[currentIndex]?.name ?? "—";
   const nextName = phase === "DONE" ? "—" : routeStations[nextIndex]?.name ?? "—";
+=======
+  const currentName = stations[currentIndex]?.name ?? "—";
+  const nextName = phase === "DONE" ? "—" : stations[nextIndex]?.name ?? "—";
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
 
   ui.uiCurrent.textContent = currentName;
   ui.uiNext.textContent = nextName;
@@ -253,7 +273,11 @@ function buildUiAndHandlers(trainId) {
 
   // Build station dropdown
   ui.stationSelect.innerHTML = "";
+<<<<<<< HEAD
   routeStations.forEach((s, idx) => {
+=======
+  stations.forEach((s, idx) => {
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
     const opt = document.createElement("option");
     opt.value = String(idx);
     opt.textContent = s.name;
@@ -268,7 +292,11 @@ function buildUiAndHandlers(trainId) {
     highlightSelectedStation();
 
     // Pan to selected station (pickup vibe)
+<<<<<<< HEAD
     const s = routeStations[selectedStationIndex];
+=======
+    const s = stations[selectedStationIndex];
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
     map.panTo([s.lat, s.lng]);
     stationMarkers[selectedStationIndex].openPopup();
   });
@@ -286,6 +314,7 @@ function buildUiAndHandlers(trainId) {
 }
 
 function startTrainPulse() {
+<<<<<<< HEAD
 
   // If restarting, clean up previous run
   if (intervalId) {
@@ -300,6 +329,8 @@ function startTrainPulse() {
   trainMarker = null;
 
 
+=======
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
   // Reset state for a clean start
   currentIndex = 0;
   nextIndex = 1;
@@ -322,7 +353,11 @@ function startTrainPulse() {
 
   // 3) Add station markers + keep references for highlighting
   stationMarkers = [];
+<<<<<<< HEAD
   routeStations.forEach((s) => {
+=======
+  stations.forEach((s) => {
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
     const marker = L.circleMarker([s.lat, s.lng], {
       radius: 6,
       weight: 2,
@@ -334,11 +369,19 @@ function startTrainPulse() {
   });
 
   // 4) Draw route line
+<<<<<<< HEAD
   const routeLatLngs = routeStations.map((s) => [s.lat, s.lng]);
   L.polyline(routeLatLngs, { weight: 4 }).addTo(map);
 
   // 5) Train marker starts at first station
   trainMarker = L.marker([routeStations[0].lat, routeStations[0].lng]).addTo(map);
+=======
+  const routeLatLngs = stations.map((s) => [s.lat, s.lng]);
+  L.polyline(routeLatLngs, { weight: 4 }).addTo(map);
+
+  // 5) Train marker starts at first station
+  trainMarker = L.marker([stations[0].lat, stations[0].lng]).addTo(map);
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
 
   const ui = buildUiAndHandlers(train.id);
 
@@ -357,6 +400,7 @@ function startTrainPulse() {
   setTimeout(() => map.invalidateSize(), 50);
 }
 
+<<<<<<< HEAD
 
 function showRouteSelection() {
   const landing = document.getElementById("landing");
@@ -459,4 +503,20 @@ document.addEventListener("DOMContentLoaded", () => {
   startTrackingBtn.addEventListener("click", showDashboardAndStartSelectedRoute);
 
   setupRouteSelectionUi();
+=======
+function showDashboardAndStart() {
+  const landing = document.getElementById("landing");
+  const appShell = document.getElementById("appShell");
+
+  landing.classList.add("is-hidden");
+  appShell.classList.add("is-visible");
+  appShell.setAttribute("aria-hidden", "false");
+
+  startTrainPulse();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btnStart = document.getElementById("btnStart");
+  btnStart.addEventListener("click", showDashboardAndStart);
+>>>>>>> 6211bd6c5ca71278e11430c8ef24f39c93a863f0
 });
