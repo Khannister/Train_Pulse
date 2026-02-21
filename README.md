@@ -55,8 +55,11 @@ git clone https://github.com/yourusername/trainpulse.git
 # Navigate into the folder
 cd trainpulse
 
-# Install dependencies
+# Run the app
 run index.html
+Open index.html in your browser
+OR
+Use VS Code Live Server (recommended)
 
 ```
 
