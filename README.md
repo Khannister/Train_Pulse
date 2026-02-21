@@ -35,10 +35,8 @@ The current version uses simulated real-time data to demonstrate full system fun
 
 ## 🛠 Tech Stack
 ```
-Frontend
-React
-Leaflet (Interactive Mapping)
-Component-based architecture
+HTML, CSS, JavaScript
+Leaflet + OpenStreetMap
 Real-time simulation engine
 ```
 
