@@ -295,3 +295,189 @@ main {
 .landing.is-hidden {
   display: none;
 }
+
+
+/* ===== Route Selection Screen ===== */
+
+.routeSelect {
+  min-height: 100vh;
+  background: #f7f8fb;
+  display: none;
+}
+
+.routeTopBar {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  border-bottom: 1px solid #e6eaf2;
+  background: #fff;
+}
+
+.routeTopBar h2 {
+  font-size: 18px;
+  font-weight: 650;
+  margin: 0;
+}
+
+.iconBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #111827;
+}
+
+.iconBtn:hover {
+  background: #f3f4f6;
+}
+
+.routeWrap {
+  padding: 24px 16px 32px;
+  display: flex;
+  justify-content: center;
+}
+
+.routeCard {
+  width: 100%;
+  max-width: 640px;
+  background: #fff;
+  border: 1px solid #e6eaf2;
+  border-radius: 18px;
+  padding: 22px 18px;
+  box-shadow: 0 10px 25px rgba(17, 24, 39, 0.06);
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 14px;
+  font-weight: 650;
+  color: #374151;
+  margin: 10px 0 8px;
+  text-align: center;
+}
+
+.selectWrap {
+  position: relative;
+}
+
+.bigSelect {
+  width: 100%;
+  height: 56px;
+  padding: 0 44px 0 18px;
+  border-radius: 16px;
+  border: 2px solid #d7ddea;
+  background: #fff;
+  font-size: 18px;
+  font-weight: 650;
+  color: #111827;
+  outline: none;
+  appearance: none;
+}
+
+.bigSelect:focus {
+  border-color: #1e5eff;
+  box-shadow: 0 0 0 4px rgba(30, 94, 255, 0.12);
+}
+
+.chev {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #6b7280;
+}
+
+.spacer {
+  height: 8px;
+}
+
+.dirList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.dirOption {
+  width: 100%;
+  height: 56px;
+  border-radius: 16px;
+  border: 2px solid #d7ddea;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  font-size: 18px;
+  font-weight: 650;
+  color: #111827;
+  cursor: pointer;
+}
+
+.dirOption.active {
+  border-color: #1e5eff;
+  background: #1e5eff;
+  color: #fff;
+  box-shadow: 0 12px 22px rgba(30, 94, 255, 0.25);
+}
+
+.dirOption .check {
+  display: none;
+}
+
+.dirOption.active .check {
+  display: inline-flex;
+  color: #fff;
+}
+
+.primaryWide {
+  width: 100%;
+  height: 64px;
+  border: 0;
+  border-radius: 18px;
+  background: #1e5eff;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 750;
+  margin-top: 18px;
+  cursor: pointer;
+  box-shadow: 0 14px 28px rgba(30, 94, 255, 0.28);
+}
+
+.primaryWide:hover {
+  filter: brightness(0.98);
+}
+
+.routeHint {
+  margin: 14px 0 0;
+  text-align: center;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+@media (max-width: 520px) {
+  .routeCard {
+    padding: 18px 14px;
+    border-radius: 16px;
+  }
+  .bigSelect, .dirOption {
+    height: 54px;
+    font-size: 17px;
+  }
+  .primaryWide {
+    height: 60px;
+  }
+}
+
+
+.routeSelect.is-visible {
+  display: block;
+}
