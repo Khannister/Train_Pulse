@@ -4,6 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TrainPulse - Cape Town (Demo)</title>
+    <!--
+      TrainPulse (Capstone Project)
+
+      NOTE FOR EXAMINERS:
+      - This project is built with plain HTML/CSS/JavaScript (no frameworks).
+      - Leaflet + OpenStreetMap are used for the map visualization.
+      - The train position is simulated (setInterval) because there is no
+        public real-time Metrorail API available for this demo.
+
+      Page flow:
+      1) Landing page (#landing)
+      2) Route selection (#routeSelect)
+      3) Dashboard / map view (#appShell)
+    -->
+
+
     <!-- Leaflet CSS -->
     <link
       rel="stylesheet"
@@ -14,7 +30,13 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <!-- Landing Page (shown first) -->
+
+
+    <!-- ============================ -->
+    <!-- 1) Landing Page (shown first) -->
+    <!-- ============================ -->
+
+
     <section id="landing" class="landing">
       <div class="landingWrap">
         <div class="landingIcon" aria-hidden="true">
@@ -71,8 +93,12 @@
         </div>
       </div>
     </section>
-    <!-- App Shell (hidden until user starts) -->
-    <!-- Route Selection -->
+
+
+    <!-- ================================= -->
+    <!-- 2) Route Selection (pick direction) -->
+    <!-- ================================= -->
+
     <section id="routeSelect" class="routeSelect" aria-hidden="true">
       <div class="routeTopBar">
         <button id="routeBackBtn" class="iconBtn" aria-label="Back to landing">
@@ -118,12 +144,19 @@
         </div>
       </div>
     </section>
+
+
+    <!-- ========================================= -->
+    <!-- 3) Dashboard / Map View (hidden until start) -->
+    <!-- ========================================= -->
+     
     <div id="appShell" class="appShell" aria-hidden="true">
       <header>
         <h1>TrainPulse</h1>
-        <p><span id="uiLineSubtitle">Southern Line (Cape Town → Retreat)</span> • simulation</p>
+        <p><span id="uiLineSubtitle">Southern Line (Cape Town → Retreat)</span> • Demo simulation</p>
       </header>
       <main>
+        <!-- Leaflet mounts into this container. Height is controlled in style.css -->
         <div id="map"></div>
       </main>
       <!-- Uber-style bottom panel -->
@@ -161,6 +194,7 @@
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
     ></script>
+    <!-- App logic (navigation + simulation) -->
     <script src="./app.js"></script>
   </body>
 </html>
