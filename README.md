@@ -26,6 +26,15 @@ With TrainPulse, users can:
 ```
 Built to reduce uncertainty and improve commuter confidence.
 
+## ✅ Features
+```
+- Landing page with clear call-to-action
+- Route selection (line + direction)
+- Dashboard with station-to-station tracking
+- Train status display (On Time / Delayed / Arrived)
+- Mobile-friendly layout
+```
+
 ## 📌 Current Focus
 
 ### Southern Line:
@@ -35,7 +44,9 @@ The current version uses simulated real-time data to demonstrate full system fun
 
 ## 🛠 Tech Stack
 ```
-HTML, CSS, JavaScript
+HTML
+CSS
+JavaScript
 Leaflet + OpenStreetMap
 Real-time simulation engine
 ```
@@ -59,6 +70,18 @@ Open index.html in your browser
 OR
 Use VS Code Live Server (recommended)
 
+```
+## ⚠️ Known Limitations
+```
+- Train data is simulated (no official live Metrorail API)
+- ETA values are estimated for demonstration
+- Only the Southern Line is supported in this version
+```
+## 🔮 Future Improvements
+```
+- Real-time data integration (if an API becomes available)
+- Multiple train lines
+- Notifications for delays and arrivals
 ```
 
 📈 Status
