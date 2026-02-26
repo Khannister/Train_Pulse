@@ -1,4 +1,18 @@
-/* style.css — TrainPulse (fixed bottom panel + responsive map) */
+/*
+  style.css — TrainPulse (Capstone Project)
+
+  NOTE FOR EXAMINERS:
+  This stylesheet is organized into clear sections to make it easier
+  to review the UI. The app has 3 key screens:
+    1) Landing page
+    2) Route selection
+    3) Dashboard (map + bottom info panel)
+
+  Design notes:
+  - The bottom panel is fixed-position (Uber-style). We reserve space
+    using main { padding-bottom: ... } so the map is not covered.
+  - Leaflet requires the #map container to have an explicit height.
+*/
 
 * {
   box-sizing: border-box;
@@ -16,7 +30,9 @@ body {
   background: #fff;
 }
 
-/* Header */
+/* =====================
+   Dashboard: Header
+   ===================== */
 header {
   padding: 14px 16px;
   border-bottom: 1px solid #e5e5e5;
@@ -34,14 +50,16 @@ header p {
   font-size: 14px;
 }
 
-/* Main content */
+/* =====================
+   Dashboard: Main layout
+   ===================== */
 main {
   padding: 12px;
   /* IMPORTANT: leave space so content isn't hidden behind the fixed panel */
   padding-bottom: 220px;
 }
 
-/* Map needs an explicit height */
+/* Leaflet map container: needs an explicit height */
 #map {
   /* Responsive height that always leaves room for header + panel */
   height: calc(100vh - 190px);
@@ -50,7 +68,9 @@ main {
   border: 1px solid #e5e5e5;
 }
 
-/* Uber-style bottom panel */
+/* =====================
+   Dashboard: Bottom panel (Uber-style)
+   ===================== */
 #bottomPanel {
   position: fixed;
   left: 12px;
@@ -158,9 +178,9 @@ main {
   }
 }
 
-/* ------------------------------
+/* =====================
    Landing page (Figma-style)
------------------------------- */
+   ===================== */
 
 .landing {
   min-height: 100vh;
@@ -283,7 +303,10 @@ main {
   }
 }
 
-/* App shell visibility toggles */
+/* =====================
+   Screen visibility toggles
+   (controlled by app.js)
+   ===================== */
 .appShell {
   display: none;
 }
@@ -297,7 +320,9 @@ main {
 }
 
 
-/* ===== Route Selection Screen ===== */
+/* =====================
+   Route Selection Screen
+   ===================== */
 
 .routeSelect {
   min-height: 100vh;
