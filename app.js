@@ -1,11 +1,29 @@
-// app.js — TrainPulse (Southern Line Cape Town -> Retreat)
-// Plain HTML + Leaflet CDN version (NOT React)
-// Now includes a simple Landing Page that transitions into the dashboard.
+/*
+  app.js — TrainPulse (Capstone Project)
+
+  NOTE FOR EXAMINERS:
+  - This project uses plain JavaScript (no React) to keep it simple and easy to run.
+  - The map uses Leaflet + OpenStreetMap tiles loaded via CDN.
+  - Train movement is simulated using setInterval to demonstrate real-time logic.
+    (There is no public real-time Metrorail API available for this demo.)
+
+  Main responsibilities of this file:
+  1) Screen navigation: Landing -> Route selection -> Dashboard
+  2) Route direction logic (Cape Town -> Retreat OR Retreat -> Cape Town)
+  3) Train simulation: stop at each station, then travel to next
+  4) Bottom-panel UI updates (ETA, current/next station, status)
+*/
+
+// Map default center (roughly Cape Town CBD) used for initial view.
 
 const capeTownCenter = { lat: -33.96, lng: 18.46 };
 
-// Southern Line stations (Cape Town -> Retreat)
-// Demo-friendly coordinates (good enough for capstone simulation visuals)
+// =====================
+// Data: Southern Line stations (Cape Town -> Retreat)
+// =====================
+// Demo-friendly coordinates (good enough for capstone simulation visuals).
+// The route can be reversed in setRoute() to support both travel directions.
+
 const stations = [
   { name: "Cape Town", lat: -33.9222, lng: 18.4264 },
   { name: "Woodstock", lat: -33.9253, lng: 18.4461 },
@@ -28,17 +46,23 @@ const stations = [
 ];
 
 
+// =====================
 // Active route (changes when direction changes)
+// =====================
 let routeStations = stations;
 let routeDirection = 'toRetreat'; // 'toRetreat' | 'toCapeTown'
 
 
-// --- Simulation settings ---
+// =====================
+// Simulation settings
+// =====================
 const updateEveryMs = 100; // tick rate
 const travelMs = 9000; // time to travel between routeStations
 const stopMs = 2500; // stop at each station
 
-// --- Simulation state ---
+// =====================
+// Simulation state
+// =====================
 let currentIndex = 0;
 let nextIndex = 1;
 let phase = "STOPPED"; // "STOPPED" | "MOVING" | "DONE"
@@ -46,11 +70,15 @@ let phase = "STOPPED"; // "STOPPED" | "MOVING" | "DONE"
 let travelStartAt = 0; // timestamp when movement started
 let stopEndsAt = 0; // timestamp when stop ends
 
-// --- “Uber feel” tracking state ---
+// =====================
+// “Uber feel” tracking state
+// =====================
 let selectedStationIndex = 0; // “Your station”
 let isTracking = false;
 
-// --- Map objects (created on start) ---
+// =====================
+// Map objects (created on start)
+// =====================
 let map;
 let stationMarkers = [];
 let trainMarker;
@@ -61,7 +89,8 @@ function setRoute(direction) {
   routeDirection = direction;
   routeStations = direction === "toCapeTown" ? [...stations].reverse() : stations;
 
-  // Reset simulation state for the new route
+  // Reset simulation state for the new route.
+  // This ensures the train always starts at the first station of the chosen direction.
   currentIndex = 0;
   nextIndex = 1;
   phase = "STOPPED";
@@ -84,6 +113,8 @@ function formatCountdown(ms) {
 }
 
 function highlightSelectedStation() {
+  // Visual emphasis for the commuter's selected station.
+  // This makes it easier to see “your station” on the map.
   stationMarkers.forEach((m, idx) => {
     if (idx === selectedStationIndex) {
       m.setStyle({ radius: 8, weight: 3 });
@@ -93,7 +124,8 @@ function highlightSelectedStation() {
   });
 }
 
-// Estimate ETA from “now” to the selected station using the same travel/stop timing as the sim.
+// Estimate ETA from “now” to the selected station using the same travel/stop timing as the simulation.
+// This keeps the UI consistent with what the user sees on the map.
 function etaToStationMs(now, targetIndex) {
   if (phase === "DONE") return null;
 
@@ -129,6 +161,7 @@ function etaToStationMs(now, targetIndex) {
 }
 
 function setTrainPopup(trainId) {
+  // Leaflet popup content shown when tracking the train marker.
   const currentName = routeStations[currentIndex]?.name ?? "—";
   const nextName = phase === "DONE" ? "—" : routeStations[nextIndex]?.name ?? "—";
   const statusText =
@@ -148,7 +181,8 @@ function arriveAtStation(trainId, index) {
   const s = routeStations[currentIndex];
   trainMarker.setLatLng([s.lat, s.lng]);
 
-  // If final station, finish
+  // Edge case: If final station, end the simulation.
+  // This prevents array overflow and ensures the UI doesn't crash.
   if (currentIndex >= routeStations.length - 1) {
     phase = "DONE";
     setTrainPopup(trainId);
@@ -170,6 +204,7 @@ function arriveAtStation(trainId, index) {
 }
 
 function departIfReady(trainId, now) {
+  // During STOPPED phase, wait until the stop timer finishes.
   if (phase !== "STOPPED") return;
   if (now < stopEndsAt) return;
 
@@ -179,6 +214,7 @@ function departIfReady(trainId, now) {
 }
 
 function moveIfMoving(trainId, now) {
+  // During MOVING phase, interpolate between current station and next station.
   if (phase !== "MOVING") return;
 
   const from = routeStations[currentIndex];
@@ -200,6 +236,8 @@ function moveIfMoving(trainId, now) {
 }
 
 function updateBottomPanel(now, ui, trainId) {
+  // Updates all text values in the fixed bottom panel.
+  // This is the main “commuter information” view (current/next/ETA/status).
   const currentName = routeStations[currentIndex]?.name ?? "—";
   const nextName = phase === "DONE" ? "—" : routeStations[nextIndex]?.name ?? "—";
 
@@ -240,6 +278,8 @@ function updateBottomPanel(now, ui, trainId) {
 }
 
 function buildUiAndHandlers(trainId) {
+  // Collect DOM references once and attach event listeners.
+  // Keeping these in one place makes the code easier to review.
   // --- Bottom panel elements ---
   const ui = {
     uiStatus: document.getElementById("uiStatus"),
@@ -264,6 +304,7 @@ function buildUiAndHandlers(trainId) {
   highlightSelectedStation();
 
   ui.stationSelect.addEventListener("change", () => {
+    // When the commuter selects a station, we highlight it and pan the map.
     selectedStationIndex = parseInt(ui.stationSelect.value, 10);
     highlightSelectedStation();
 
@@ -275,6 +316,7 @@ function buildUiAndHandlers(trainId) {
 
   // Track button toggles map-follow
   ui.btnTrack.addEventListener("click", () => {
+    // Toggle “follow train” behavior (similar to ride-sharing tracking).
     isTracking = !isTracking;
     if (isTracking) {
       trainMarker.openPopup();
@@ -286,8 +328,11 @@ function buildUiAndHandlers(trainId) {
 }
 
 function startTrainPulse() {
+  // Creates the map and starts the simulation loop.
+  // IMPORTANT: This is only called after the dashboard is visible.
+  // Leaflet needs a visible container to calculate correct sizes.
 
-  // If restarting, clean up previous run
+  // If restarting, clean up previous run (prevents duplicate intervals/maps).
   if (intervalId) {
     clearInterval(intervalId);
     intervalId = null;
@@ -300,7 +345,8 @@ function startTrainPulse() {
   trainMarker = null;
 
 
-  // Reset state for a clean start
+  // Reset state for a clean start.
+  // This makes the simulation deterministic for marking/demo purposes.
   currentIndex = 0;
   nextIndex = 1;
   phase = "STOPPED";
@@ -314,7 +360,7 @@ function startTrainPulse() {
   // 1) Create map (now that it's visible)
   map = L.map("map").setView([capeTownCenter.lat, capeTownCenter.lng], 12);
 
-  // 2) Add tiles
+  // 2) Add base map tiles (OpenStreetMap)
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: "&copy; OpenStreetMap contributors",
@@ -333,11 +379,11 @@ function startTrainPulse() {
     stationMarkers.push(marker);
   });
 
-  // 4) Draw route line
+  // 4) Draw route polyline
   const routeLatLngs = routeStations.map((s) => [s.lat, s.lng]);
   L.polyline(routeLatLngs, { weight: 4 }).addTo(map);
 
-  // 5) Train marker starts at first station
+  // 5) Train marker starts at the first station of the selected direction
   trainMarker = L.marker([routeStations[0].lat, routeStations[0].lng]).addTo(map);
 
   const ui = buildUiAndHandlers(train.id);
@@ -345,7 +391,7 @@ function startTrainPulse() {
   // Start simulation at first station
   arriveAtStation(train.id, 0);
 
-  // Main loop
+  // Main simulation loop
   intervalId = window.setInterval(() => {
     const now = Date.now();
     departIfReady(train.id, now);
@@ -353,12 +399,13 @@ function startTrainPulse() {
     updateBottomPanel(now, ui, train.id);
   }, updateEveryMs);
 
-  // Make sure map tiles render correctly after showing
+  // Make sure map tiles render correctly after showing (common Leaflet gotcha).
   setTimeout(() => map.invalidateSize(), 50);
 }
 
 
 function showRouteSelection() {
+  // Navigation: Landing -> Route selection
   const landing = document.getElementById("landing");
   const routeSelect = document.getElementById("routeSelect");
   const appShell = document.getElementById("appShell");
@@ -373,6 +420,7 @@ function showRouteSelection() {
 }
 
 function showLanding() {
+  // Navigation: Route selection -> Landing
   const landing = document.getElementById("landing");
   const routeSelect = document.getElementById("routeSelect");
   const appShell = document.getElementById("appShell");
@@ -387,6 +435,8 @@ function showLanding() {
 }
 
 function showDashboardAndStartSelectedRoute() {
+  // Navigation: Route selection -> Dashboard
+  // Starts the simulation after the dashboard is visible.
   const landing = document.getElementById("landing");
   const routeSelect = document.getElementById("routeSelect");
   const appShell = document.getElementById("appShell");
@@ -411,6 +461,9 @@ function showDashboardAndStartSelectedRoute() {
 }
 
 function setupRouteSelectionUi() {
+  // Route selection UI:
+  // - Clicking a direction toggles the selected button style.
+  // - We also reverse station order to simulate opposite direction travel.
   const dirToCapeTown = document.getElementById("dirToCapeTown");
   const dirToRetreat = document.getElementById("dirToRetreat");
   const hint = document.getElementById("routeHint");
@@ -418,7 +471,7 @@ function setupRouteSelectionUi() {
   function applyDirection(direction) {
     setRoute(direction);
 
-    // Toggle UI
+    // Toggle UI (active state + hint text)
     if (direction === "toCapeTown") {
       dirToCapeTown.classList.add("active");
       dirToCapeTown.setAttribute("aria-checked", "true");
@@ -450,6 +503,7 @@ function setupRouteSelectionUi() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Entry point: wire up button clicks once the DOM is ready.
   const btnStart = document.getElementById("btnStart");
   const backBtn = document.getElementById("routeBackBtn");
   const startTrackingBtn = document.getElementById("startTrackingBtn");
